@@ -1,0 +1,25 @@
+def turn_on(self):
+        """开启香薰机"""
+        self set_level(self current_level)
+        
+    def turn_off(self):
+        """关闭香薰机"""
+        GPIO output(self relay_pin, GPIO HIGH)
+        GPIO output(self fan_pin, GPIO LOW)
+        
+    def cleanup(self):
+        """清理GPIO资源"""
+        GPIO cleanup([self relay_pin, self fan_pin])
+2  MQTT物联网集成
+python
+import paho mqtt client as mqtt
+import json
+ 
+class AromaMQTTController:
+    def __init__(self, diffuser, broker="localhost", port=1883):
+        self diffuser = diffuser
+        self client = mqtt Client("aroma_diffuser")
+        self client on_connect = self on_connect
+        self client on_message = self on_message
+        self broker = broker
+        self port = port
