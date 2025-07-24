@@ -1,0 +1,29 @@
+
+import psutil
+ 
+class CPUMonitor:
+    def get_usage(self):
+        """获取当前CPU使用率百分比"""
+        try:
+            return psutil cpu_percent(interval=1)
+        except Exception as e:
+            print(f"CPU监控错误: {e}")
+            return 0
+3  进程管理模块
+python
+class ProcessManager:
+    def get_processes(self):
+        """获取当前运行进程及其资源使用情况"""
+        processes = []
+        try:
+            for proc in psutil process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+                processes append({
+                    'pid': proc info['pid'],
+                    'name': proc info['name'],
+                    'cpu': proc info['cpu_percent'],
+                    'memory': proc info['memory_percent']
+                })
+            return processes
+        except Exception as e:
+            print(f"进程获取错误: {e}")
+            return []
