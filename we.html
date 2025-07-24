@@ -1,0 +1,58 @@
+ self canvas = FigureCanvasTkAgg(self figure, master=chart_frame)
+        self canvas draw()
+        self canvas get_tk_widget() pack(fill=tk BOTH, expand=True)
+        
+        # 更新按钮
+        update_btn = ttk Button(main_frame, text="手动更新数据", command=self update_data)
+        update_btn pack(pady=5)
+    
+    def update_data(self):
+        """更新所有数据和显示"""
+        # 模拟数据采集
+        self sensor simulate_flow()
+        current_usage, total_usage = self sensor get_current_usage()
+        
+        # 分析用水模式
+        usage_pattern = self analyzer analyze_usage(current_usage, total_usage)
+        
+        # 生成建议
+        suggestions = self analyzer generate_suggestions(usage_pattern)
+        
+        # 更新UI
+        self flow_label config(text=f"流量: {self sensor flow_rate: 1f} L/min")
+        self total_label config(text=f"总用水量: {total_usage: 1f} L")
+        self pattern_label config(text=f"用水模式: {usage_pattern}")
+        
+        self suggestion_text delete(1 0, tk END)
+        self suggestion_text insert(tk END, suggestions)
+        
+        # 更新图表 (简化版)
+        self update_chart(total_usage)
+        
+        # 设置10秒后自动更新
+        self root after(10000, self update_data)
+    
+    def update_chart(self, current_total):
+        """更新用水趋势图"""
+        self ax clear()
+        
+        # 生成模拟历史数据 (简化版)
+        hours = list(range(24))
+        base_usage = [50 + 20 * (i % 8) for i in hours]  # 基础模式
+        
+        # 添加当前点的影响
+        current_hour = dateti me now() hour
+        base_usage[current_hour] += current_total * 0 5  # 简化处理
+        
+        self ax plot(hours, base_usage, 'b-')
+        self ax set_title("24小时用水趋势")
+        self ax set_xlabel("时间 (小时)")
+        self ax set_ylabel("用水量 (L)")
+        self ax grid(True)
+        
+        self canvas draw()
+ 
+if __name__ == "__main__":
+    root = tk Tk()
+    app = WaterSaverApp(root)
+    root mainloop()
