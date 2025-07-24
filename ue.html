@@ -1,0 +1,38 @@
+if __name__ == '__main__':
+    app run(host='0 0 0 0', port=5000, debug=True)
+4  定时任务模块
+python
+import schedule
+import ti me
+from dateti me import dateti me
+ 
+class AromaScheduler:
+    def __init__(self, diffuser):
+        self diffuser = diffuser
+        self schedules = []
+        
+    def add_schedule(self, ti me_str, action, level=None):
+        """添加定时任务
+        ti me_str: "HH:MM"格式的时间
+        action: "on"/"off"
+        level: 可选，开启时的浓度级别
+        """
+        def job():
+            if action == "on":
+                if level:
+                    # 在实际应用中需要转换为ScentLevel枚举
+                    pass
+                self diffuser turn_on()
+            else:
+                self diffuser turn_off()
+                
+        schedule every() day at(ti me_str) do(job)
+        self schedules append((ti me_str, action, level))
+        
+    def run_pending(self):
+        """运行所有待处理的任务"""
+        schedule run_pending()
+        
+    def get_schedules(self):
+        """获取所有定时任务"""
+        return self schedules
