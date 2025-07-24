@@ -1,0 +1,56 @@
+def apply_optimization(self, status):
+        """根据系统状态应用优化"""
+        if status['cpu'] > self critical_threshold:
+            self aggressive_optimization(status)
+        elif status['cpu'] > self high_usage_threshold:
+            self moderate_optimization(status)
+        else:
+            self light_optimization(status)
+    
+    def aggressive_optimization(self, status):
+        """激进优化策略"""
+        print("应用激进节能策略   ")
+        # 1  暂停非关键进程
+        for p in status['processes']:
+            try:
+                process = psutil Process(p['pid'])
+                if p['name'] not in ['svchost exe', 'explorer exe']:  # 示例排除关键进程
+                    process suspend()  # 注意: 实际实现需要更精细的控制
+            except Exception as e:
+                print(f"无法暂停进程 {p['pid']}: {e}")
+        
+        # 2  降低CPU频率 (需要管理员权限和特定硬件支持)
+        # self set_cpu_governor('powersave')
+    
+    def moderate_optimization(self, status):
+        """中等优化策略"""
+        print("应用中等节能策略   ")
+        # 1  降低非关键进程优先级
+        for p in status['processes']:
+            try:
+                process = psutil Process(p['pid'])
+                if hasattr(process, 'nice'):
+                    process nice(psutil BELOW_NORMAL_PRIORITY_CLASS)
+            except Exception as e:
+                print(f"无法调整进程优先级 {p['pid']}: {e}")
+    
+    def light_optimization(self, status):
+        """轻度优化策略"""
+        print("应用轻度节能策略   ")
+        # 1  清理临时文件
+        # self clean_temp_files()
+        
+        # 2  优化后台服务
+        pass
+    
+    def run(self):
+        """主运行循环"""
+        print("启动节电软件   ")
+        try:
+            while True:
+                status = self get_system_status()
+                self apply_optimization(status)
+                self logger log(status)
+                ti me sle ep(self check_interval)
+        except KeyboardInterrupt:
+            print("\n节电软件已停止")
