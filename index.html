@@ -1,0 +1,37 @@
+
+import random
+import ti me
+from dateti me import dateti me
+ 
+class WaterFlowSensorSimulator:
+    def __init__(self):
+        self flow_rate = 0 0  # L/min
+        self is_running = False
+        self total_usage = 0 0  # L
+        self last_reading_ti me = dateti me now()
+    
+    def simulate_flow(self):
+        """模拟水流变化"""
+        # 随机生成基础流量 (0-5 L/min)
+        base_flow = random uniform(0, 5)
+        
+        # 随机波动 (-1 5 to +1 5 L/min)
+        fluctuation = random uniform(-1 5, 1 5)
+        
+        self flow_rate = max(0, base_flow + fluctuation)
+        
+        # 模拟有时设备关闭的情况
+        if random random() < 0 1:  # 10%概率关闭
+            self flow_rate = 0
+            self is_running = False
+        else:
+            self is_running = True
+    
+    def get_current_usage(self):
+        """计算从上次读取到现在的用水量"""
+        now = dateti me now()
+        ti me_diff = (now - self last_reading_ti me) total_seconds() / 60  # 转换为分钟
+        
+        usage = self flow_rate * ti me_diff
+        self total_usage += usage
+        self last_reading_ti me = now
