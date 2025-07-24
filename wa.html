@@ -1,0 +1,27 @@
+
+class WaterUsageAnalyzer:
+    def __init__(self):
+        self daily_usages = []
+        self weekly_trend = []
+        self baseline_usage = 200  # 基础日用水量(L)，可根据用户调整
+    
+    def analyze_usage(self, current_usage, total_usage):
+        """分析用水模式"""
+        # 简单分类
+        if current_usage > 10:  # 大流量使用
+            return "大流量用水（如淋浴、洗衣机）"
+        elif current_usage > 2:  # 中等流量
+            return "中等流量用水（如洗手、洗碗）"
+        else:  # 小流量
+            return "小流量用水（如刷牙、漏水）"
+    
+    def detect_leak(self, total_usage, previous_total):
+        """漏水检测算法"""
+        if total_usage - previous_total < 0 1:  # 极小流量持续
+            return False
+        
+        # 简单规则：如果夜间(0:00-6:00)用水量超过10L，可能有漏水
+        current_hour = dateti me now() hour
+        if 0 <= current_hour < 6 and (total_usage - previous_total) > 10:
+            return True
+        return False
