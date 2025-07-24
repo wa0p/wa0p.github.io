@@ -1,0 +1,46 @@
+
+from dataclasses import dataclass
+from dateti me import dateti me, ti medelta
+from typing import List, Optional
+ 
+@dataclass
+class Program:
+    id: int
+    title: str
+    duration: ti medelta  # 节目时长
+    category: str  # 节目类型
+    description: Optional[str] = None
+ 
+@dataclass
+class ScheduleItem:
+    program: Program
+    start_ti me: dateti me  # 计划播放时间
+    end_ti me: dateti me  # 计算得出
+核心功能实现
+1  节目管理模块
+python
+class ProgramManager:
+    def __init__(self):
+        self programs = {}  # id: Program
+    
+    def add_program(self, program: Program):
+        """添加新节目"""
+        if program id in self programs:
+            raise ValueError(f"Program ID {program id} already exists")
+        self programs[program id] = program
+    
+    def get_program(self, program_id: int) -> Program:
+        """获取节目信息"""
+        return self programs get(program_id)
+    
+    def list_programs(self) -> List[Program]:
+        """列出所有节目"""
+        return list(self programs values())
+    
+    def search_programs(self, keyword: str) -> List[Program]:
+        """搜索节目"""
+        return [
+            p for p in self programs values() 
+            if keyword lower() in p title lower() or 
+               (p description and keyword lower() in p description lower())
+        ]
