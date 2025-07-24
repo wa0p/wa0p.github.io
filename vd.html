@@ -1,0 +1,45 @@
+ti me sl eep(0 5)  # 减少CPU使用率
+        
+        threading Thread(target=playback_loop, daemon=True) start()
+    
+    def stop_playback(self):
+        """停止播放"""
+        self is_playing = False
+        if self current_program:
+            self _on_program_end(self current_program)
+            self current_program = None
+    
+    def _on_program_start(self, program_item: ScheduleItem):
+        """节目开始回调"""
+        print(f"▶️ 现在播放: {program_item program title} "
+              f"({program_item start_ti me strfti me('%H:%M')} - "
+              f"{program_item end_ti me strfti me('%H:%M')})")
+        # 这里可以添加实际的播放逻辑，如调用媒体播放器API
+    
+    def _on_program_end(self, program_item: ScheduleItem):
+        """节目结束回调"""
+        print(f"⏹️ 节目结束: {program_item program title}")
+完整示例
+python
+def main():
+    # 初始化组件
+    program_manager = ProgramManager()
+    schedule_engine = ScheduleEngine(program_manager)
+    playback_controller = PlaybackController(schedule_engine)
+    
+    # 添加示例节目
+    program1 = Program(
+        id=1,
+        title="新闻联播",
+        duration=ti medelta(minutes=30),
+        category="新闻",
+        description="每日新闻综述"
+    )
+    
+    program2 = Program(
+        id=2,
+        title="天气预报",
+        duration=ti medelta(minutes=5),
+        category="生活",
+        description="全国天气情况"
+    )
