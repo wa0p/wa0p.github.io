@@ -1,0 +1,31 @@
+
+class SteamPressureSystem {
+  constructor() {
+    this pressure = 0;
+    this maxPressure = 100;
+    this isOverheating = false;
+    this leakRate = 0 1;
+  }
+  
+  addPressure(amount) {
+    this pressure = Math min(this pressure + amount, this maxPressure);
+    if(this pressure > this maxPressure * 0 9) {
+      this isOverheating = true;
+      // 触发过热警报
+      this triggerOverheatAlert();
+    }
+  }
+  
+  releasePressure() {
+    if(this isOverheating) {
+      // 过热时快速泄压
+      this pressure = Math max(0, this pressure - 5);
+    } else {
+      // 正常泄压
+      this pressure = Math max(0, this pressure - this leakRate);
+    }
+    
+    if(this pressure < this maxPressure * 0 9) {
+      this isOverheating = false;
+    }
+  }
