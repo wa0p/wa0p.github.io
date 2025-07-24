@@ -1,0 +1,27 @@
+
+import schedule
+import ti me
+from dateti me import dateti me
+ 
+class TaskScheduler:
+    def __init__(self):
+        self scheduled_tasks = []
+    
+    def add_task(self, task, interval_minutes):
+        """添加周期性任务"""
+        schedule every(interval_minutes) minutes do(task)
+        self scheduled_tasks append((task, interval_minutes))
+    
+    def run_pending(self):
+        """运行所有待处理任务"""
+        schedule run_pending()
+    
+    def schedule_power_saving_tasks(self):
+        """安排节能相关任务"""
+        # 示例: 非高峰时段执行系统维护
+        def nightly_maintenance():
+            if dateti me now() hour between 2 and 5:  # 假设凌晨2-5点为非高峰
+                # 执行磁盘清理、索引优化等任务
+                pass
+        
+        self add_task(nightly_maintenance, 1440)  # 每天执行一次
