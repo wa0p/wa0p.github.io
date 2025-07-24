@@ -1,0 +1,18 @@
+def generate_suggestions(self, usage_pattern):
+        """根据用水模式生成节水建议"""
+        suggestions = []
+        
+        if "大流量" in usage_pattern:
+            suggestions append("• 考虑安装节水型淋浴头，可节省30-50%的水量")
+            suggestions append("• 缩短淋浴时间，每分钟可节省6-12升水")
+            suggestions append("• 洗衣机和洗碗机尽量满载运行")
+        
+        if "中等流量" in usage_pattern:
+            suggestions append("• 洗碗时不要让水一直流，用盆接水清洗更节水")
+            suggestions append("• 考虑安装节水型水龙头，可减少50%的水流量")
+        
+        if "小流量" in usage_pattern or self detect_leak(0, 0):  # 简化漏水检测
+            suggestions append("• 检查是否有漏水的水龙头或管道")
+            suggestions append("• 刷牙时请关闭水龙头，可节省大量用水")
+        
+        return "\n" join(suggestions)
