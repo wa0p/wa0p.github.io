@@ -1,0 +1,36 @@
+
+import RPi GPIO as GPIO
+import ti me
+from enum import Enum
+ 
+class ScentLevel(Enum):
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
+ 
+class AromaDiffuser:
+    def __init__(self, relay_pin, fan_pin):
+        self relay_pin = relay_pin  # 雾化片控制
+        self fan_pin = fan_pin      # 风扇控制
+        GPIO setmode(GPIO BCM)
+        GPIO setup(relay_pin, GPIO OUT)
+        GPIO setup(fan_pin, GPIO OUT)
+        self current_level = ScentLevel LOW
+        
+    def set_level(self, level):
+        """设置香薰浓度级别"""
+        if not isinstance(level, ScentLevel):
+            raise ValueError("Invalid scent level")
+            
+        self current_level = level
+        # 根据级别调整PWM占空比或继电器开关组合
+        if level == ScentLevel LOW:
+            GPIO output(self relay_pin, GPIO HIGH)  # 低功率雾化
+            GPIO output(self fan_pin, GPIO LOW)     # 风扇低速
+        elif level == ScentLevel MEDIUM:
+            GPIO output(self relay_pin, GPIO LOW)   # 正常雾化
+            GPIO output(self fan_pin, GPIO HIGH)    # 风扇中速
+        else:  # HIGH
+            GPIO output(self relay_pin, GPIO LOW)   # 正常雾化
+            GPIO output(self fan_pin, GPIO HIGH)    # 风扇高速
+            # 实际应用中可添加更多控制逻辑
