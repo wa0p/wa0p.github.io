@@ -1,0 +1,46 @@
+
+class CharSiuBunMaker:
+    def __init__(self):
+        self buns = []
+    
+    def make_bun(self):
+        try:
+            # 准备原料
+            print("\n=== 准备原料 ===")
+            flour = IngredientPreparation prepare_flour()
+            yeast = IngredientPreparation prepare_yeast()
+            char_siu = IngredientPreparation prepare_char_siu()
+            seasonings = IngredientPreparation prepare_seasonings()
+            
+            # 制作面团
+            print("\n=== 制作面团 ===")
+            dough = DoughFermentation ferment_dough(flour, yeast)
+            
+            # 制作馅料
+            print("\n=== 制作馅料 ===")
+            filling = self _make_filling(char_siu, seasonings)
+            
+            # 包制叉烧包
+            print("\n=== 包制叉烧包 ===")
+            bun = self _assemble_bun(dough, filling)
+            
+            # 蒸制
+            print("\n=== 蒸制过程 ===")
+            self _steam_bun(bun)
+            
+            self buns append(bun)
+            print(f"\n✅ 成功制作了一个叉烧包！{bun}")
+            return bun
+            
+        except FermentationFailedError as e:
+            print(f"\n❌ 制作失败: {e}")
+            return None
+    
+    def _make_filling(self, meat, seasonings):
+        # 简化版馅料制作
+        quality = min(10, int((meat quality * 0 7 + seasonings quality * 0 3)))
+        return {
+            'meat': meat,
+            'seasonings': seasonings,
+            'quality': quality
+        }
