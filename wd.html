@@ -1,0 +1,25 @@
+ self flow_label = ttk Label(current_frame, text="流量: 0 0 L/min", font=('Arial', 12))
+        self flow_label pack()
+        
+        self total_label = ttk Label(current_frame, text="总用水量: 0 0 L", font=('Arial', 12))
+        self total_label pack()
+        
+        self pattern_label = ttk Label(current_frame, text="用水模式: -", font=('Arial', 12))
+        self pattern_label pack()
+        
+        # 节水建议框
+        suggestion_frame = ttk LabelFrame(main_frame, text="节水建议", padding="10")
+        suggestion_frame pack(fill=tk BOTH, expand=True, pady=5)
+        
+        self suggestion_text = tk Text(suggestion_frame, height=10, wrap=tk WORD)
+        self suggestion_text pack(fill=tk BOTH, expand=True)
+        
+        # 图表区域
+        chart_frame = ttk LabelFrame(main_frame, text="用水趋势图", padding="10")
+        chart_frame pack(fill=tk BOTH, expand=True, pady=5)
+        
+        self figure = plt Figure(figsize=(5, 3), dpi=100)
+        self ax = self figure add_subplot(111)
+        self ax set_title("24小时用水趋势")
+        self ax set_xlabel("时间")
+        self ax set_ylabel("用水量 (L)")
