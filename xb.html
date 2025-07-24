@@ -1,0 +1,24 @@
+ // 创建齿轮齿
+    for(let i = 0; i < this teeth; i++) {
+      const tooth = document createElement('div');
+      tooth className = 'gear-tooth';
+      tooth style transform = `rotate(${i * (360/this teeth)}deg)`;
+      this element appendChild(tooth);
+    }
+    
+    // 中心轴
+    const axle = document createElement('div');
+    axle className = 'gear-axle';
+    this element appendChild(axle);
+  }
+  
+  rotate(speed) {
+    this angle += speed;
+    this element style transform = `rotate(${this angle}deg)`;
+    requestAnimationFrame(() => this rotate(speed));
+  }
+}
+ 
+// 使用示例
+const gear1 = new SteamGear(document getElementById('gear1'), 100, 20);
+gear1 rotate(1); // 每帧旋转1度
