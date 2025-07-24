@@ -1,0 +1,32 @@
+def _assemble_bun(self, dough, filling):
+        # 计算最终品质
+        dough_quality = dough['quality']
+        filling_quality = filling['quality']
+        
+        # 包制技巧系数 (随机模拟)
+        technique_factor = random uniform(0 8, 1 2)
+        
+        quality_score = min(10, int((dough_quality * 0 4 + filling_quality * 0 5) * technique_factor))
+        
+        bun = CharSiuBun()
+        bun quality_score = quality_score
+        return bun
+    
+    def _steam_bun(self, bun):
+        # 根据品质决定蒸制时间
+        optimal_ti me = 12 + (10 - bun quality_score) * 0 5  # 品质越低需要蒸更久
+        actual_ti me = random gauss(optimal_ti me, 1)  # 加入一些随机性
+        actual_ti me = max(8, min(18, actual_ti me))  # 限制在合理范围内
+        
+        bun steaming_ti me = round(actual_ti me, 1)
+        bun is_steamed = True
+        
+        # 蒸制效果评估
+        if actual_ti me > optimal_ti me + 2:
+            bun quality_score = max(1, bun quality_score - 2)
+            print("⚠️ 蒸制时间过长，叉烧包口感稍差")
+        elif actual_ti me < optimal_ti me - 2:
+            bun quality_score = max(1, bun quality_score - 1)
+            print("⚠️ 蒸制时间不足，叉烧包未完全熟透")
+        else:
+            print("🟢 完美蒸制！")
