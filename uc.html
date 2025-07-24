@@ -1,0 +1,26 @@
+def on_connect(self, client, userdata, flags, rc):
+        print("Connected with result code "+str(rc))
+        # 订阅控制主题
+        client subscribe("home/aroma/control")
+        client subscribe("home/aroma/set_level")
+        
+    def on_message(self, client, userdata, msg):
+        payload = json loads(msg payload decode())
+        print(f"Received message on {msg topic}: {payload}")
+        
+        if msg topic == "home/aroma/control":
+            if payload get("action") == "on":
+                self diffuser turn_on()
+            elif payload get("action") == "off":
+                self diffuser turn_off()
+                
+        elif msg topic == "home/aroma/set_level":
+            level = payload get("level")
+            try:
+                self diffuser set_level(ScentLevel[level upper()])
+            except (KeyError, ValueError):
+                print("Invalid scent level specified")
+                
+    def start(self):
+        self client connect(self broker, self port, 60)
+        self client loop_forever()
