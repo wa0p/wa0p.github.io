@@ -1,0 +1,30 @@
+def optimize_processes(self, processes, threshold=80):
+        """根据策略优化高耗能进程"""
+        for p in processes:
+            if p['cpu'] > threshold or p['memory'] > threshold:
+                try:
+                    process = psutil Process(p['pid'])
+                    # 降低优先级 (Windows)
+                    if hasattr(process, 'nice'):
+                        process nice(psutil BELOW_NORMAL_PRIORITY_CLASS)
+                    # 对于非关键进程，可以考虑暂停或限制资源
+                    # 这里可以添加更多优化策略
+                except (psutil NoSuchProcess, psutil AccessDenied):
+                    continue
+4  节能策略模块
+python
+class PowerPolicy:
+    def __init__(self):
+        self check_interval = 30  # 检查间隔(秒)
+        self high_usage_threshold = 75  # 高使用率阈值(%)
+        self critical_threshold = 90  # 关键阈值(%)
+        self allowed_idle_processes = 5  # 允许的空闲进程数
+    
+    def get_optimization_strategy(self, cpu_usage):
+        """根据CPU使用率确定优化策略"""
+        if cpu_usage > self critical_threshold:
+            return "AGGRESSIVE"  # 激进优化
+        elif cpu_usage > self high_usage_threshold:
+            return "MODERATE"    # 中等优化
+        else:
+            return "LIGHT"       # 轻度优化
