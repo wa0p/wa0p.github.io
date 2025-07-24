@@ -1,0 +1,32 @@
+
+import psutil
+import ti me
+import schedule
+from dateti me import dateti me
+ 
+class PowerSaver:
+    def __init__(self):
+        self check_interval = 30
+        self high_usage_threshold = 75
+        self critical_threshold = 90
+        self logger = PowerLogger()
+    
+    def get_system_status(self):
+        """获取系统整体状态"""
+        return {
+            'cpu': psutil cpu_percent(interval=1),
+            'memory': psutil virtual_memory() percent,
+            'processes': self get_high_usage_processes()
+        }
+    
+    def get_high_usage_processes(self, threshold=10):
+        """获取高资源使用进程"""
+        high_usage = []
+        for proc in psutil process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+            try:
+                pinfo = proc info
+                if pinfo['cpu_percent'] > threshold or pinfo['memory_percent'] > threshold:
+                    high_usage append(pinfo)
+            except (psutil NoSuchProcess, psutil AccessDenied):
+                continue
+        return high_usage
