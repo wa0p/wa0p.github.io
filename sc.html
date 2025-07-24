@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贴膜软件代码</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+            color: black;
+        }
+        .content {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>贴膜软件代码</h1>
+</header>
+
+<nav>
+    <a href="#home">首页</a>
+    <a href="#about">关于我们</a>
+    <a href="#services">服务</a>
+    <a href="#contact">联系我们</a>
+</nav>
+
+<div class="content">
+
+
+
+// 使用ARCore实现贴膜对齐
+class ArAlignmentHelper(private val context: Context) : ArSession fra meListener {
+    private lateinit var session: ArSession
+    private lateinit var anchor: Anchor
+    
+    fun initializeAR(surfaceView: ArSceneView) {
+        try {
+            session = ArSession(context)
+            session config setPlaneFindingMode(Config PlaneFindingMode HORIZONTAL)
+            surfaceView setupSession(session)
+            session addListener(this)
+        } catch (e: UnavailableException) {
+            Log e("ARHelper", "ARCore unavailable", e)
+        }
+    }
+    
+    fun placeTemplateAtDetectedPlane(hitResult: HitResult) {
+        anchor = hitResult createAnchor()
+        
+        // 创建虚拟贴膜节点
+        val templateNode = Node()
+        templateNode renderable = createTemplateRenderable()
+        templateNode setParent(anchor)
+        
+        // 根据设备轮廓调整大小和位置
+        adjustTemplateToDevice(templateNode)
+    }
+    
+
+
+
+
+</p>
+  
+</div>
+
+<footer>
+    <p>版权所有 &copy; 2025 我的网站</p>
+</footer>
+<div style="display:none"><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"KSz9p2HYYDIoqev8",ck:"KSz9p2HYYDIoqev8"})</script></div>
+</body>
+</html>
