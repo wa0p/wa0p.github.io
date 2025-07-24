@@ -1,0 +1,40 @@
+def get_next_program(self, current_ti me: dateti me) -> Optional[ScheduleItem]:
+        """获取下一个节目"""
+        for i, item in enumerate(self schedule):
+            if item start_ti me > current_ti me:
+                return item
+        return None
+3  播放控制器
+python
+import ti me
+import threading
+ 
+class PlaybackController:
+    def __init__(self, schedule_engine: ScheduleEngine):
+        self schedule_engine = schedule_engine
+        self is_playing = False
+        self current_program = None
+    
+    def start_playback(self, start_ti me: Optional[dateti me] = None):
+        """开始播放"""
+        if self is_playing:
+            return
+            
+        self is_playing = True
+        current_ti me = start_ti me if start_ti me else dateti me now()
+        
+        def playback_loop():
+            while self is_playing:
+                now = dateti me now()
+                program_item = self schedule_engine get_current_program(now)
+                
+                if program_item and program_item != self current_program:
+                    self current_program = program_item
+                    self _on_program_start(program_item)
+                
+                # 模拟播放进度
+                if self current_program:
+                    elapsed = (now - self current_program start_ti me) total_seconds()
+                    if elapsed >= self current_program program duration total_seconds():
+                        self _on_program_end(self current_program)
+                        self current_program = None
