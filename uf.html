@@ -1,0 +1,50 @@
+# 示例用法
+if __name__ == "__main__":
+    diffuser = AromaDiffuser(relay_pin=17, fan_pin=18)
+    scheduler = AromaScheduler(diffuser)
+    
+    # 添加每天8:00开启的定时任务
+    scheduler add_schedule("08:00", "on", "MEDIUM")
+    # 添加每天22:00关闭的定时任务
+    scheduler add_schedule("22:00", "off")
+    
+    try:
+        while True:
+            scheduler run_pending()
+            ti me sl eep(1)
+    except KeyboardInterrupt:
+        diffuser cleanup()
+完整系统集成示例
+python
+import ti me
+from aroma_diffuser import AromaDiffuser, ScentLevel
+from aroma_mqtt import AromaMQTTController
+from aroma_scheduler import AromaScheduler
+ 
+def main():
+    # 初始化硬件
+    diffuser = AromaDiffuser(relay_pin=17, fan_pin=18)
+    
+    # 初始化MQTT控制器
+    mqtt_controller = AromaMQTTController(diffuser, broker="192 168 1 100")
+    
+    # 初始化定时任务
+    scheduler = AromaScheduler(diffuser)
+    scheduler add_schedule("08:00", "on", "MEDIUM")
+    scheduler add_schedule("22:00", "off")
+    
+    try:
+        # 启动MQTT客户端（在单独线程中运行）
+        import threading
+        mqtt_thread = threading Thread(target=mqtt_controller start)
+        mqtt_thread daemon = True
+        mqtt_thread start()
+        
+        print("Aroma Diffuser Control System Started")
+        while True:
+            # 这里可以添加主循环逻辑
+            # 例如检查传感器数据、处理用户输入等
+            
+            # 运行定时任务检查
+            scheduler run_pending()
+            ti me sl eep(1)
