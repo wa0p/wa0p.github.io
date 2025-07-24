@@ -1,0 +1,39 @@
+
+  triggerOverheatAlert() {
+    console log("警告！系统过热！");
+    // 这里可以添加视觉和声音效果
+  }
+  
+  update() {
+    this releasePressure();
+    return this pressure;
+  }
+}
+2  机械联动系统
+javascri pt
+class MechanicalLinkage {
+  constructor() {
+    this components = [];
+    this gearRatios = {};
+  }
+  
+  addComponent(name, initialState) {
+    this components[name] = initialState;
+  }
+  
+  setGearRatio(driver, driven, ratio) {
+    this gearRatios[`${driver}->${driven}`] = ratio;
+  }
+  
+  updateComponent(driver, change) {
+    // 更新驱动组件
+    this components[driver] += change;
+    
+    // 通过齿轮比更新所有从动组件
+    for(const [link, ratio] of Object entries(this gearRatios)) {
+      if(link startsWith(`${driver}->`)) {
+        const driven = link split('->')[1];
+        this components[driven] += change * ratio;
+      }
+    }
+  }
