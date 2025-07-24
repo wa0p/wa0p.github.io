@@ -1,0 +1,59 @@
+
+  getState() {
+    return {   this components};
+  }
+}
+ 
+// 使用示例
+const engine = new MechanicalLinkage();
+engine addComponent('crank', 0);
+engine addComponent('piston', 0);
+engine addComponent('flywheel', 0);
+ 
+engine setGearRatio('crank', 'piston', 0 5); // 曲轴转两圈，活塞一个行程
+engine setGearRatio('crank', 'flywheel', 1); // 同步旋转
+ 
+// 转动曲轴
+engine updateComponent('crank', 30); // 旋转30度
+console log(engine getState());
+三、蒸汽朋克数据可视化
+1  锅炉压力仪表盘
+javascri pt
+class SteamGauge {
+  constructor(canvasId) {
+    this canvas = document getElementById(canvasId);
+    this ctx = this canvas getContext('2d');
+    this width = this canvas width;
+    this height = this canvas height;
+    this centerX = this width / 2;
+    this centerY = this height * 0 8;
+    this radius = this width * 0 4;
+    this currentValue = 0;
+    this targetValue = 0;
+    this animationFrame = null;
+  }
+  
+  drawGauge() {
+    // 清空画布
+    this ctx clearRect(0, 0, this width, this height);
+    
+    // 绘制外框
+    this ctx beginPath();
+    this ctx arc(this centerX, this centerY, this radius, 0, Math PI * 2);
+    this ctx lineWidth = 10;
+    this ctx strokeStyle = '#8B4513';
+    this ctx stroke();
+    
+    // 绘制刻度
+    this drawTicks();
+    
+    // 绘制指针
+    this drawNeedle();
+    
+    // 绘制数字显示
+    this drawDigitalDisplay();
+    
+    if(this currentValue !== this targetValue) {
+      this animateValue();
+    }
+  }
