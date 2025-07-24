@@ -1,0 +1,33 @@
+
+class ScheduleEngine:
+    def __init__(self, program_manager: ProgramManager):
+        self program_manager = program_manager
+        self schedule = []  # List[ScheduleItem]
+    
+    def generate_schedule(self, start_ti me: dateti me, program_ids: List[int]) -> List[ScheduleItem]:
+        """根据节目ID列表生成时间表"""
+        self schedule = []
+        current_ti me = start_ti me
+        
+        for program_id in program_ids:
+            program = self program_manager get_program(program_id)
+            if not program:
+                continue
+                
+            end_ti me = current_ti me + program duration
+            schedule_item = ScheduleItem(
+                program=program,
+                start_ti me=current_ti me,
+                end_ti me=end_ti me
+            )
+            self schedule append(schedule_item)
+            current_ti me = end_ti me
+            
+        return self schedule
+    
+    def get_current_program(self, current_ti me: dateti me) -> Optional[ScheduleItem]:
+        """获取当前应该播放的节目"""
+        for item in self schedule:
+            if item start_ti me <= current_ti me < item end_ti me:
+                return item
+        return None
