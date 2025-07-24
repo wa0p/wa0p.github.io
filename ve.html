@@ -1,0 +1,21 @@
+ program3 = Program(
+        id=3,
+        title="电视剧: 欢乐颂",
+        duration=ti medelta(minutes=45),
+        category="娱乐",
+        description="都市情感剧"
+    )
+    
+    for program in [program1, program2, program3]:
+        program_manager add_program(program)
+    
+    # 生成今日节目表 (从当前时间开始)
+    start_ti me = dateti me now() replace(minute=0, second=0, microsecond=0)
+    program_ids = [1, 2, 3, 1, 3]  # 编排顺序
+    schedule = schedule_engine generate_schedule(start_ti me, program_ids)
+    
+    # 打印今日节目表
+    print("\n今日节目表:")
+    for item in schedule:
+        print(f"{item start_ti me strfti me('%H:%M')} - {item end_ti me strfti me('%H:%M')}: "
+              f"{item program title} ({item program duration})")
