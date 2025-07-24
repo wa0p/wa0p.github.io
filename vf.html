@@ -1,0 +1,18 @@
+# 模拟播放 (实际使用时可以去掉ti me sl eep)
+    print("\n启动播放系统   ")
+    playback_controller start_playback()
+    
+    # 运行一段时间后停止 (实际使用时可以由用户控制)
+    try:
+        while True:
+            ti me sl eep(1)
+    except KeyboardInterrupt:
+        playback_controller stop_playback()
+        print("\n播放系统已停止")
+ 
+if __name__ == "__main__":
+    main()
+扩展功能建议
+持久化存储：使用SQLite或数据库存储节目信息
+Web界面：使用Flask/Django提供管理界面
+自动编排算法：根据节目类型、时长等自动生成合理编排
