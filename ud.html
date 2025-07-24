@@ -1,0 +1,31 @@
+
+from flask import Flask, render_template, request, jsonify
+app = Flask(__name__)
+ 
+# 模拟设备状态（实际应用中应与硬件交互）
+current_status = {"power": False, "level": "LOW"}
+ 
+@app route('/')
+def index():
+    return render_template('control html')
+ 
+@app route('/api/status', methods=['GET'])
+def get_status():
+    return jsonify(current_status)
+ 
+@app route('/api/control', methods=['POST'])
+def control_device():
+    global current_status
+    data = request json
+    action = data get('action')
+    
+    if action == 'toggle':
+        current_status['power'] = not current_status['power']
+    elif action == 'set_level':
+        level = data get('level')
+        if level in ['LOW', 'MEDIUM', 'HIGH']:
+            current_status['level'] = level
+    
+    # 这里应添加实际硬件控制代码
+    print(f"Device control: {current_status}")
+    return jsonify({"status": "success", "new_state": current_status})
