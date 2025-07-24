@@ -1,0 +1,60 @@
+
+  drawTicks() {
+    const tickCount = 10;
+    for(let i = 0; i <= tickCount; i++) {
+      const angle = (i / tickCount) * Math PI * 1 6 - Math PI * 0 2; // 限制在160度范围内
+      const outerRadius = this radius - 10;
+      const innerRadius = this radius - 30;
+      
+      // 主刻度线
+      this ctx beginPath();
+      this ctx moveTo(
+        this centerX + Math cos(angle) * innerRadius,
+        this centerY + Math sin(angle) * innerRadius
+      );
+      this ctx lineTo(
+        this centerX + Math cos(angle) * outerRadius,
+        this centerY + Math sin(angle) * outerRadius
+      );
+      this ctx lineWidth = i % 2 === 0 ? 4 : 2; // 每两个刻度加粗
+      this ctx strokeStyle = '#D4AF37';
+      this ctx stroke();
+      
+      // 刻度数字
+      if(i % 2 === 0 && i !== tickCount) {
+        const text = `${i * 10}%`;
+        const textX = this centerX + Math cos(angle) * (outerRadius + 20);
+        const textY = this centerY + Math sin(angle) * (outerRadius + 20);
+        
+        this ctx font = '16px "Courier New", monospace';
+        this ctx fillStyle = '#D4AF37';
+        this ctx textAlign = Math cos(angle) > 0 ? 'left' : 'right';
+        this ctx fillText(text, textX, textY);
+      }
+    }
+  }
+  
+  drawNeedle() {
+    const angle = (this currentValue / 100) * Math PI * 1 6 - Math PI * 0 2;
+    const needleLength = this radius * 0 7;
+    
+    // 指针阴影
+    this ctx shadowColor = 'rgba(0,0,0,0 5)';
+    this ctx shadowBlur = 10;
+    
+    // 指针主体
+    this ctx beginPath();
+    this ctx moveTo(this centerX, this centerY);
+    this ctx lineTo(
+      this centerX + Math cos(angle) * needleLength,
+      this centerY + Math sin(angle) * needleLength
+    );
+    this ctx lineWidth = 6;
+    this ctx strokeStyle = '#B22222'; // 蒸汽朋克红色
+    this ctx stroke();
+    
+    // 指针尾部
+    this ctx beginPath();
+    this ctx arc(this centerX, this centerY, 8, 0, Math PI * 2);
+    this ctx fillStyle = '#8B0000';
+    this ctx fill();
